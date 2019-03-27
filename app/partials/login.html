@@ -1,0 +1,36 @@
+<md-dialog style="width: 350px" md-theme="yellow-dark">
+  <form name="credentialsForm" ng-submit="login()">
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div layout="column" layout-align="center center">
+          <md-icon style="zoom: 400%" class="md-primary">perm_identity</md-icon>
+          <h2 class="md-display-1">Вход</h2>
+        </div>
+        <md-input-container class="md-block">
+          <label>Имя пользователя</label>
+          <input name="username" ng-model="credentials.username" required minlength="5" md-autofocus>
+          <div ng-messages="credentialsForm.username.$error" role="alert" multiple>
+            <div ng-message="required">Поле не должно быть пустым.</div>
+            <div ng-message="minlength">Поле должно содержать минимум 5 символов.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Пароль</label>
+          <input type="password" name="password" ng-model="credentials.password" minlength="5" required>
+          <div ng-messages="credentialsForm.password.$error" role="alert" multiple>
+            <div ng-message="required">Поле не должно быть пустым.</div>
+            <div ng-message="minlength">Поле должно содержать минимум 5 символов.</div>
+          </div>
+        </md-input-container>
+        <!--<div layout layout-align="space-between center">
+          <a ui-sref=".register">Регистрация</a>
+          <a class="md-primary" href="javascript:;">Локально</a>
+        </div>-->
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button type="submit" class="md-primary" ng-disabled="credentialsForm.$invalid || busy">Войти</md-button>
+      <md-button ng-click="cancel()">Отмена</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

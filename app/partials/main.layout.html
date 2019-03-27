@@ -1,0 +1,28 @@
+<md-toolbar md-whiteframe>
+  <span flex></span>
+  <div class="md-toolbar-tools">
+    <md-button class="md-icon-button" ui-sref="travels" ng-show="$state.includes('travel')">
+      <md-icon>arrow_back</md-icon>
+    </md-button>
+    <h2 md-truncate flex>Travel Checklist</h2>
+    <div style="margin-right: 8px" layout ui-view="toolbar" ng-if="Session.isAuthenticated()"></div>
+    <md-menu>
+      <md-button class="md-icon-button" ng-click="Session.isAuthenticated() ? $mdMenu.open() : $state.go($transition.to, $transition.params, { reload: true })" aria-label="Аутентификация">
+        <md-icon>perm_identity</md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button ui-sref="account">
+            <md-icon>perm_identity</md-icon> <span style="font-weight: 500">{{ Session.data.username }}</span>
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button ng-click="logout()">
+            <md-icon>exit_to_app</md-icon> Выход
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+  </div>
+</md-toolbar>
+<md-content style="background-color: #ddd" flex ui-view></md-content>

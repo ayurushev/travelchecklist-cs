@@ -1,0 +1,29 @@
+<section layout layout-xs="column" layout-align="start start" layout-align-xs="start center">
+  <md-card class="fade" ng-repeat="travel in travels" md-whiteframe="16">
+    <img ng-src="{{ travel.cardImage || 'img/card.png' }}" class="md-card-image">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">
+          <md-icon class="material-icons" ng-show="allDone(travel)">done_all</md-icon> {{ travel.title }} <span style="white-space: nowrap" class="md-body-1">{{ summarize(travel.steps) }} {{ travel.currency }}</span>
+        </span>
+        <span class="md-subhead">{{ travel.subtitle }}</span>
+      </md-card-title-text>
+      <md-card-title-media>
+        <div class="md-media-sm"></div>
+      </md-card-title-media>
+    </md-card-title>
+    <md-card-content>
+      <ul>
+        <li ng-repeat="step in travel.steps">
+          <md-checkbox ng-model="step.done" ng-if="step.title.length > 0">
+            <span ng-style="step.done && { 'text-decoration': 'line-through' }">{{ step.title }}<span>
+          </md-checkbox>
+        </li>
+      </ul>
+    </md-card-content>
+    <md-card-actions layout layout-align="space-between center">
+      <md-button ui-sref="travel({ id: travel.id })">Открыть</md-button>
+      <md-button class="md-warn" ng-click="remove(travel.id)">Удалить</md-button>
+    </md-card-actions>
+  </md-card>
+<section>

@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=cyrillic');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/*[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}*/
+
+md-input-container.no-errors-spacer .md-errors-spacer {
+  display: none;
+}
+
+md-card {
+  max-width: 400px;
+}
+
+md-input-container.no-underline > input:not(:focus) {
+  border-bottom-color: transparent !important;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 8px;
+}
+
+.margin-bottom:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.bg-window {
+  background-color: window;
+}
+
+.items-summary {
+  border-bottom: 1px dashed #999;
+  color: #999;
+  margin-right: 54px;
+}
+
+[ui-view] {
+  will-change: opacity;
+}
+
+[ui-view].ng-enter {
+  transition: .5s;
+  -webkit-transition: .5s;
+  opacity: 0;
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+}
+
+.fade {
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+}
+
+.fade.ng-enter {
+  opacity: 0;
+}
+
+.fade.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.fade.ng-leave {
+  opacity: 1;
+}
+
+.fade.ng-leave.ng-leave-active {
+  opacity: 0;
+}
