@@ -1,7 +1,7 @@
 <md-toolbar md-whiteframe>
   <span flex></span>
   <div class="md-toolbar-tools">
-    <md-button class="md-icon-button" ui-sref="travels" ng-show="$state.includes('travel')">
+    <md-button class="md-icon-button" ui-sref="travels" ng-show="$state.is('travel') || $state.is('account')">
       <md-icon>arrow_back</md-icon>
     </md-button>
     <h2 md-truncate flex>Travel Checklist</h2>
@@ -23,6 +23,7 @@
           </md-button>
         </md-menu-item>
       </md-menu-content>
+    </md-menu>
   </div>
 </md-toolbar>
 <md-content style="background-color: #ddd" flex ui-view></md-content>

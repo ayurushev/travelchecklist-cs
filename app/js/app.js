@@ -8,6 +8,26 @@ var app = angular.module('app', ['ui.router', 'ngMaterial', 'ngAnimate', 'templa
 app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
 	$httpProvider.interceptors.push('AuthInterceptor');
 
+	$stateProvider.state('account', {
+		url: '/account',
+		protected: true,
+		views: {
+			'': {
+				templateUrl: 'partials/account.html',
+				controller: 'AccountController'
+			}
+		},
+		resolve: {
+			data: ['$http', 'API_URL', function($http, API_URL) {
+				return $http.get(`${ API_URL }/account/`).then(function(response) {
+					if (response.data.success === true) {
+						return response.data.user;
+					}
+				});
+			}]
+		}
+	});
+
 	$stateProvider.state('travels', {
 		url: '/',
 		protected: true,
@@ -50,6 +70,8 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationP
 
 	$mdThemingProvider.theme('yellow-dark', 'default').primaryPalette('yellow').dark();
 }]);
+
+app.value('API_URL', 'https://mercloud.com:4136/api');
 
 app.run(['$rootScope', '$state', '$transitions', '$mdDialog', 'Session', function($rootScope, $state, $transitions, $mdDialog, Session) {
 	$transitions.onBefore({}, function(transition) {

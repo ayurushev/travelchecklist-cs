@@ -1,5 +1,5 @@
-app.factory('Travels', ['$http', function($http) {
-  let model, backup, api = 'https://mercloud.com:4136/api/travels';
+app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
+  let model, backup, api = `${ API_URL }/travels`;
   return {
     newStepIndex: -1,
     get: function(id) {

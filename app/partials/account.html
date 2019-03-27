@@ -1,0 +1,22 @@
+<section>
+  <form name="accountForm" ng-submit="update()">
+    <md-content class="md-padding" md-whiteframe="8">
+      <div layout layout-align="space-between center">
+        <h3 class="md-headline">Учетная запись</h3>
+        <p class="md-body-2">Создана: <span class="md-body-1">{{ data.created | date: 'short' }}</span></p>
+      </div>
+      <div layout>
+        <md-input-container flex>
+          <input ng-model="data.username" placeholder="Имя пользователя" disabled>
+        </md-input-container>
+        <md-input-container flex>
+          <input type="password" ng-model="data.password" placeholder="Новый пароль" disabled>
+        </md-input-container>
+      </div>
+      <md-input-container class="md-block">
+        <input ng-model="data.name" placeholder="Имя">
+      </md-input-container>
+      <md-button type="submit" class="md-primary md-raised">Обновить</md-button>
+    </md-content>
+  </form>
+</section>
