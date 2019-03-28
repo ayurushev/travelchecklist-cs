@@ -1,12 +1,12 @@
-<md-button class="md-icon-button" ng-click="addStep()">
+<md-button class="md-icon-button" ng-click="Travels.addStep()">
   <md-tooltip>Добавить шаг</md-tooltip>
   <md-icon>add</md-icon>
 </md-button>
-<progress-button class="md-icon-button" on-click="reload()" ng-disabled="Travels.isPristine()">
+<progress-button class="md-icon-button" on-click="$state.reload()" ng-disabled="Travels.isPristine()">
   <md-tooltip>Отменить изменения</md-tooltip>
   <md-icon>restore</md-icon>
 </progress-button>
-<progress-button class="md-icon-button" on-click="save()" ng-disabled="Travels.isPristine()">
+<progress-button class="md-icon-button" on-click="Travels.save()" ng-disabled="Travels.isPristine()">
   <md-tooltip>Сохранить</md-tooltip>
   <md-icon>save_alt</md-icon>
 </progress-button>

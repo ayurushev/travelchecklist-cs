@@ -22,4 +22,9 @@ app.controller('TravelController', ['$scope', 'Travels', 'data', function($scope
     });
     return summary.toFixed(2);
   }
+
+  $scope.$on('auth-logged-out', function() {
+    // clear data on logout
+    $scope.travel = undefined;
+  });
 }]);

@@ -1,4 +1,4 @@
-app.factory('Auth', ['$http', '$mdToast', 'Session', function($http, $mdToast, Session) {
+app.factory('Auth', ['$http', '$mdToast', '$rootScope', 'Session', function($http, $mdToast, $rootScope, Session) {
   return {
     login: function(username, password, callback) {
       $http.post('https://mercloud.com:4136/api/authenticate', { username: username, password: password }).then(function(response) {
@@ -7,6 +7,7 @@ app.factory('Auth', ['$http', '$mdToast', 'Session', function($http, $mdToast, S
             username: username,
             token: response.data.token
           });
+          $rootScope.$broadcast('auth-logged-in');
           $mdToast.show($mdToast.simple({ textContent: 'Выполнен вход (' + username + ')' }));
           callback(true);
         } else {
@@ -18,6 +19,7 @@ app.factory('Auth', ['$http', '$mdToast', 'Session', function($http, $mdToast, S
     },
     logout: function() {
       Session.flush();
+      $rootScope.$broadcast('auth-logged-out');
       $mdToast.show($mdToast.simple({ textContent: 'Выполнен выход' }));
     }
   };

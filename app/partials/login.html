@@ -9,7 +9,7 @@
         <md-input-container class="md-block">
           <label>Имя пользователя</label>
           <input name="username" ng-model="credentials.username" required minlength="5" md-autofocus>
-          <div ng-messages="credentialsForm.username.$error" role="alert" multiple>
+          <div ng-messages="credentialsForm.username.$error" role="alert">
             <div ng-message="required">Поле не должно быть пустым.</div>
             <div ng-message="minlength">Поле должно содержать минимум 5 символов.</div>
           </div>
@@ -17,7 +17,7 @@
         <md-input-container class="md-block">
           <label>Пароль</label>
           <input type="password" name="password" ng-model="credentials.password" minlength="5" required>
-          <div ng-messages="credentialsForm.password.$error" role="alert" multiple>
+          <div ng-messages="credentialsForm.password.$error" role="alert">
             <div ng-message="required">Поле не должно быть пустым.</div>
             <div ng-message="minlength">Поле должно содержать минимум 5 символов.</div>
           </div>

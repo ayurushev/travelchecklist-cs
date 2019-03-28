@@ -3,7 +3,7 @@
 	(c) 2019 Andrei /Lavar/ Yurushev
 	https://lavar.mercloud.com
 */
-var app = angular.module('app', ['ui.router', 'ngMaterial', 'ngAnimate', 'templates']);
+var app = angular.module('app', ['ui.router', 'ngMaterial', 'ngMessages', 'ngAnimate', 'templates']);
 
 app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
 	$httpProvider.interceptors.push('AuthInterceptor');
@@ -78,7 +78,7 @@ app.run(['$rootScope', '$state', '$transitions', '$mdDialog', 'Session', functio
 		// transition can be aborted here and $state.current will have
 		// abstract state then with no useful information, so we have
 		// to save transition data before that to global $rootScope
-		// variable to call it later to invoke login dialog
+		// variable to call it later to invoke login dialog for example
 		$rootScope.$transition = {
 			to: transition.to(),
 			params: transition.params()

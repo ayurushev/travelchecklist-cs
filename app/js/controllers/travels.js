@@ -1,4 +1,4 @@
-app.controller('TravelsController', ['$scope', '$state', 'Travels', 'data', function($scope, $state, Travels, data) {
+app.controller('TravelsController', ['$scope', '$state', '$mdDialog', 'Travels', 'data', function($scope, $state, $mdDialog, Travels, data) {
   $scope.Travels = Travels;
   $scope.travels = data;
 
@@ -13,7 +13,17 @@ app.controller('TravelsController', ['$scope', '$state', 'Travels', 'data', func
   }
 
   $scope.remove = function(id) {
-    Travels.remove(id);
+    $mdDialog.show($mdDialog.confirm({
+      title: 'Удалить?',
+      textContent: 'Данные будут безвозвратно удалены.',
+      ariaLabel: 'Удалить',
+      targetEvent: event,
+      ok: 'Удалить',
+      cancel: 'Отмена'
+    })).then(function() {
+      Travels.remove(id);
+    }, function() {
+    });
   }
 
   $scope.summarize = function(steps) {
@@ -27,4 +37,9 @@ app.controller('TravelsController', ['$scope', '$state', 'Travels', 'data', func
     });
     return summary.toFixed(2);
   }
+
+  $scope.$on('auth-logged-out', function() {
+    // clear data on logout
+    $scope.travels = undefined;
+  });
 }]);

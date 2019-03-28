@@ -1,5 +1,5 @@
 app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
-  let model, backup, api = `${ API_URL }/travels`;
+  let model, originalModel, api = `${ API_URL }/travels`;
   return {
     newStepIndex: -1,
     get: function(id) {
@@ -9,7 +9,7 @@ app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
         if (response.data.success === true) {
           // save model reference into memory
           model = angular.fromJson(response.data[id ? 'travel' : 'travels']);
-          backup = angular.copy(model);
+          originalModel = angular.copy(model);
         }
         return model;
       }, function(error) {
@@ -50,11 +50,13 @@ app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
     // populate currently opened travel object with data
     save: function() {
       return $http.put(api, model).then(function(response) {
+        originalModel = angular.copy(model);
         return response.data.success;
+      }, function(error) {
       });
     },
     isPristine: function() {
-      return angular.equals(model, backup);
+      return angular.equals(model, originalModel);
     }
   };
 }]);

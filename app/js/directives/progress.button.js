@@ -1,4 +1,4 @@
-app.directive('progressButton', ['$timeout', function($timeout) {
+app.directive('progressButton', ['$parse', function($parse) {
   return {
     replace: true,
     transclude: true,
@@ -17,12 +17,15 @@ app.directive('progressButton', ['$timeout', function($timeout) {
     link: function(scope, element, attrs) {
       scope.click = function() {
         scope.busy = true;
-        $timeout(function() {
+        let fn = $parse(scope.onClick)(scope);
+        if (fn && angular.isFunction(fn.finally)) {
+          fn.finally(function() {
+            scope.busy = false;
+          });
+        } else {
           scope.busy = false;
-          if (angular.isFunction(scope.onClick)) {
-            scope.onClick();
-          }
-        }, 500);
+          console.warn('progressButton: onClick no promise.');
+        }
       }
     }
   };
