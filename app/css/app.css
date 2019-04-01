@@ -33,7 +33,7 @@ ul {
 .items-summary {
   border-bottom: 1px dashed #999;
   color: #999;
-  margin-right: 54px;
+  /*margin-right: 54px;*/
 }
 
 [ui-view] {

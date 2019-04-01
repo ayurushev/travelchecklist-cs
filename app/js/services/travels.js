@@ -2,6 +2,7 @@ app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
   let model, originalModel, api = `${ API_URL }/travels`;
   return {
     newStepIndex: -1,
+    editMode: false,
     get: function(id) {
       // reset index
       this.newStepIndex = -1;
@@ -37,6 +38,7 @@ app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
     },
     addStep: function() {
       this.newStepIndex = model.steps.push({ items: [] }) - 1;
+      this.editMode = true;
     },
     addItem: function(stepIndex) {
       return model.steps[stepIndex].items.push([]);
@@ -57,6 +59,9 @@ app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
     },
     isPristine: function() {
       return angular.equals(model, originalModel);
+    },
+    toggleEdit: function() {
+      this.editMode = !this.editMode;
     }
   };
 }]);

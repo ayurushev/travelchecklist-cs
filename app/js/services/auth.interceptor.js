@@ -8,6 +8,9 @@ app.factory('AuthInterceptor', ['$q', 'Session', function($q, Session) {
       return config || $q.when(config);
     },
     response: function(response) {
+      if (response.data && response.data.success === false) {
+        Session.flush();
+      }
       return response || $q.when(response);
     },
     responseError: function(response) {

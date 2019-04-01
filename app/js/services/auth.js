@@ -1,7 +1,7 @@
-app.factory('Auth', ['$http', '$mdToast', '$rootScope', 'Session', function($http, $mdToast, $rootScope, Session) {
+app.factory('Auth', ['$http', '$mdToast', '$rootScope', 'Session', 'API_URL', function($http, $mdToast, $rootScope, Session, API_URL) {
   return {
     login: function(username, password, callback) {
-      $http.post('https://mercloud.com:4136/api/authenticate', { username: username, password: password }).then(function(response) {
+      $http.post(`${ API_URL }/authenticate`, { username: username, password: password }).then(function(response) {
         if (response.data.success) {
           Session.set({
             username: username,

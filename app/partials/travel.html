@@ -1,17 +1,17 @@
 <section>
   <div class="bg-window" layout="column" layout-gt-sm="row" md-whiteframe="8">
-    <div card-image="travel.cardImage" flex-gt-sm="25" ng-show="travel.cardImage"></div>
+    <div card-image="travel.cardImage" flex-gt-sm="25" ng-show="travel.cardImage" ng-disabled="!Travels.editMode"></div>
     <div class="md-padding" layout="column" flex>
       <md-input-container class="md-title">
-        <input ng-model="travel.title" placeholder="Заголовок" autocomplete="off" md-select-on-focus>
+        <input ng-model="travel.title" placeholder="Заголовок" autocomplete="off" ng-disabled="!Travels.editMode" md-select-on-focus>
       </md-input-container>
       <div layout layout-align="start start">
         <md-input-container flex>
-          <input ng-model="travel.subtitle" placeholder="Подзаголовок" autocomplete="off" md-select-on-focus>
+          <input ng-model="travel.subtitle" placeholder="Подзаголовок" autocomplete="off" ng-disabled="!Travels.editMode" md-select-on-focus>
         </md-input-container>
         <md-input-container>
           <label>Валюта</label>
-          <md-select ng-model="travel.currency"> <!--class="md-no-underline"-->
+          <md-select ng-model="travel.currency" ng-disabled="!Travels.editMode">
             <md-option ng-repeat="currency in ['EUR', 'USD', 'PLN', 'RUB']" ng-value="currency">{{ currency }}</md-option>
           </md-select>
         </md-input-container>
@@ -22,31 +22,46 @@
     <div class="md-padding bg-window margin-bottom fade" ng-repeat="step in travel.steps" id="step{{ $index }}" md-whiteframe>
       <div layout layout-align="space-between center">
         <md-checkbox style="margin-bottom: 0" class="md-title" ng-model="step.done">Выполнено</md-checkbox>
-        <md-button class="md-fab md-mini md-warn" ng-click="removeStep($index)">
+        <md-button class="md-fab md-mini md-warn" ng-click="removeStep($index)" ng-show="Travels.editMode">
           <md-icon>clear</md-icon>
         </md-button>
       </div>
-      <md-input-container class="md-block md-title">
-        <input ng-model="step.title" placeholder="Шаг {{ $index + 1 }}" autocomplete="off" focus-on="Travels.newStepIndex == $index" md-select-on-focus>
-      </md-input-container>
-      <md-content style="border-left: 2px solid #999; padding-right: 0" class="md-padding">
-        <div ng-repeat="item in step.items" layout>
-          <md-input-container flex>
-            <input ng-model="item[0]" placeholder="Позиция {{ $index + 1 }}" autocomplete="off" focus-on="stepIndex === $parent.$index && newItemIndex === $index" md-select-on-focus>
-          </md-input-container>
-          <md-input-container flex="20">
-            <input type="number" ng-model="item[1]" placeholder="Стоимость" autocomplete="off" md-select-on-focus>
-          </md-input-container>
-          <md-button class="md-fab md-mini md-raised" ng-click="removeItem($parent.$index, $index)">
-            <md-icon>clear</md-icon>
-          </md-button>
+      <div ng-hide="Travels.editMode">
+        <h3 class="md-title">{{ step.title }}</h3>
+      </div>
+      <div ng-show="Travels.editMode">
+        <md-input-container class="md-block md-title">
+          <input ng-model="step.title" placeholder="Шаг {{ $index + 1 }}" autocomplete="off" focus-on="Travels.newStepIndex == $index" ng-keyup="$event.keyCode === 13 ? addItem($index) : null" md-select-on-focus>
+        </md-input-container>
+      </div>
+
+      <md-content style="border-left: 2px solid #ccc" class="md-padding">
+        <div ng-repeat="item in step.items">
+          <div ng-hide="Travels.editMode" layout>
+            <p flex>{{ item[0] }}</p>
+            <p flex="20">{{ item[1] }}</p>
+          </div>
+
+          <div ng-show="Travels.editMode" layout>
+            <md-input-container flex>
+              <input ng-model="item[0]" placeholder="Позиция {{ $index + 1 }}" autocomplete="off" focus-on="stepIndex === $parent.$index && newItemIndex === $index" ng-keyup="$event.keyCode === 13 ? addItem($parent.$index) : null" md-select-on-focus>
+            </md-input-container>
+            <md-input-container flex="20">
+              <input type="number" ng-model="item[1]" placeholder="Стоимость" autocomplete="off" md-select-on-focus>
+            </md-input-container>
+            <md-button class="md-fab md-mini md-raised" ng-click="removeItem($parent.$index, $index)">
+              <md-icon>clear</md-icon>
+            </md-button>
+          </div>
+
         </div>
         <div layout layout-align="space-between center">
-          <md-button class="md-fab md-mini md-primary" ng-click="addItem($index)" ng-disabled="step.items.length === 10">
+          <md-button class="md-fab md-mini md-primary" ng-click="addItem($index)" ng-disabled="step.items.length === 10" ng-show="Travels.editMode">
             <md-tooltip>Добавить позицию</md-tooltip>
             <md-icon>add</md-icon>
           </md-button>
-          <h3 class="md-title items-summary" flex="20">{{ summarize(step.items ) }}</h3>
+          <span flex></span>
+          <h3 class="md-title items-summary" flex="20" ng-hide="Travels.editMode">{{ summarize(step.items ) }}</h3>
         </div>
       </md-content>
     </div>

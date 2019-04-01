@@ -2,7 +2,11 @@
   <md-tooltip>Добавить шаг</md-tooltip>
   <md-icon>add</md-icon>
 </md-button>
-<progress-button class="md-icon-button" on-click="$state.reload()" ng-disabled="Travels.isPristine()">
+<md-button class="md-icon-button" ng-class="{ 'md-accent': Travels.editMode }" ng-click="Travels.toggleEdit()">
+  <md-tooltip>Режим редактирования</md-tooltip>
+  <md-icon>edit</md-icon>
+</md-button>
+<progress-button class="md-icon-button" on-click="$state.reload()" ng-hide="Travels.isPristine()">
   <md-tooltip>Отменить изменения</md-tooltip>
   <md-icon>restore</md-icon>
 </progress-button>
