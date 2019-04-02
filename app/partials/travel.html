@@ -21,7 +21,7 @@
   <section class="md-margin">
     <div class="md-padding bg-window margin-bottom fade" ng-repeat="step in travel.steps" id="step{{ $index }}" md-whiteframe>
       <div layout layout-align="space-between center">
-        <md-checkbox style="margin-bottom: 0" class="md-title" ng-model="step.done">Выполнено</md-checkbox>
+        <md-checkbox style="margin-bottom: 0; color: #666" class="md-title" ng-model="step.done">Выполнено</md-checkbox>
         <md-button class="md-fab md-mini md-warn" ng-click="removeStep($index)" ng-show="Travels.editMode">
           <md-icon>clear</md-icon>
         </md-button>

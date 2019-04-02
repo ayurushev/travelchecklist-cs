@@ -1,6 +1,10 @@
-app.controller('TravelController', ['$scope', 'Travels', 'data', function($scope, Travels, data) {
+app.controller('TravelController', ['$scope', '$stateParams', 'Travels', 'data', function($scope, $stateParams, Travels, data) {
   $scope.Travels = Travels;
   $scope.travel = data;
+
+  if (data.steps.length === 0) {
+    Travels.editMode = true;
+  }
 
   $scope.removeStep = function(index) {
     Travels.removeStep(index);

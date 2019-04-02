@@ -15,14 +15,14 @@
     <md-card-content>
       <ul>
         <li ng-repeat="step in travel.steps">
-          <md-checkbox ng-model="step.done" ng-if="step.title.length > 0">
+          <md-checkbox ng-model="step.done" ng-change="toggleDone(travel.id, step)" ng-if="step.title.length > 0">
             <span ng-style="step.done && { 'text-decoration': 'line-through' }">{{ step.title }}<span>
           </md-checkbox>
         </li>
       </ul>
     </md-card-content>
     <md-card-actions layout layout-align="space-between center">
-      <md-button ui-sref="travel({ id: travel.id })">Открыть</md-button>
+      <md-button ui-sref="travel({ id: travel.id })" ng-disabled="$loading">Открыть</md-button>
       <md-button class="md-warn" ng-click="remove(travel.id)">Удалить</md-button>
     </md-card-actions>
   </md-card>

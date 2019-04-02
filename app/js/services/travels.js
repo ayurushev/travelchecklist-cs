@@ -49,6 +49,14 @@ app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
     removeItem: function(stepIndex, index) {
       model.steps[stepIndex].items.splice(index, 1);
     },
+    toggleDone: function(id, sid, done) {
+      done = done || false;
+      return $http.put(`${ api }/${ id }/step/${ sid }`, { done: done }).then(function(response) {
+        return response.data;
+      }, function(error) {
+        return error;
+      });
+    },
     // populate currently opened travel object with data
     save: function() {
       return $http.put(api, model).then(function(response) {

@@ -1,4 +1,4 @@
-app.controller('TravelsController', ['$scope', '$state', '$mdDialog', 'Travels', 'data', function($scope, $state, $mdDialog, Travels, data) {
+app.controller('TravelsController', ['$scope', '$state', '$mdDialog', '$mdToast', 'Travels', 'data', function($scope, $state, $mdDialog, $mdToast, Travels, data) {
   $scope.Travels = Travels;
   $scope.travels = data;
 
@@ -12,6 +12,15 @@ app.controller('TravelsController', ['$scope', '$state', '$mdDialog', 'Travels',
     return result;
   }
 
+  $scope.toggleDone = function(id, step) {
+    Travels.toggleDone(id, step.id, step.done).then(function(response) {
+      if (!response.success === true) {
+        // restore value in case of network error
+        step.done = !step.done;
+      }
+    });
+  }
+
   $scope.remove = function(id) {
     $mdDialog.show($mdDialog.confirm({
       title: 'Удалить?',
@@ -21,7 +30,9 @@ app.controller('TravelsController', ['$scope', '$state', '$mdDialog', 'Travels',
       ok: 'Удалить',
       cancel: 'Отмена'
     })).then(function() {
-      Travels.remove(id);
+      Travels.remove(id).then(function() {
+        $mdToast.show($mdToast.simple({ textContent: 'Путешествие удалено.' }));
+      });
     }, function() {
     });
   }
