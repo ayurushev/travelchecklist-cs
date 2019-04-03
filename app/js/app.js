@@ -102,12 +102,4 @@ app.run(['$rootScope', '$state', '$transitions', '$mdDialog', 'Session', functio
 			}
 	  }
   });
-
-	$transitions.onStart({}, function() {
-		$rootScope.$loading = true;
-	});
-
-	$transitions.onFinish({}, function() {
-		$rootScope.$loading = false;
-	});
 }]);

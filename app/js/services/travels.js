@@ -21,8 +21,10 @@ app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
     add: function(callback) {
       return $http.post(api).then(function(response) {
         if (response.data.success === true) {
-          //callback(response.data.travel.id);
           model.push(response.data.travel);
+          if (angular.isFunction(callback)) {
+            callback(response.data.travel.id);
+          }
         }
       }, function(error) {
       });
@@ -54,14 +56,15 @@ app.factory('Travels', ['$http', 'API_URL', function($http, API_URL) {
       return $http.put(`${ api }/${ id }/step/${ sid }`, { done: done }).then(function(response) {
         return response.data;
       }, function(error) {
-        return error;
       });
     },
     // populate currently opened travel object with data
     save: function() {
+      let t = this;
       return $http.put(api, model).then(function(response) {
         originalModel = angular.copy(model);
-        return response.data.success;
+        t.editMode = false;
+        return response.data;
       }, function(error) {
       });
     },

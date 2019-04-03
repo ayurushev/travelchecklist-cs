@@ -2,7 +2,7 @@
  * AngularJS Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.13
+ * v1.1.17
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -723,7 +723,7 @@ MdNavItemController.prototype.getButtonEl = function() {
 };
 
 /**
- * Set the selected state of the tab and update the tabindex.
+ * Set the selected state of the tab and updates the tabindex.
  * This function is called for the oldTab and newTab when selection changes.
  * @param {boolean} isSelected true to select the tab, false to deselect the tab
  */
